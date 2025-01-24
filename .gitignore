@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Ignore the .json file containing sensitive variables
+/src/main/resources/*.json
+
 ### STS ###
 .apt_generated
 .classpath

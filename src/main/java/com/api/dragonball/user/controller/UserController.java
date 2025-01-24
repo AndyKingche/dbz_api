@@ -21,7 +21,15 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
+    /**
+     * Retrieves a list of all users.
+     *
+     * This method handles GET requests to the "/list-user" route and returns a list of all users in the system.
+     * If the operation is successful, it returns the list with HTTP status 200 (OK).
+     * If an error occurs, it returns an HTTP status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return A [ResponseEntity] containing the list of [UserModel] objects and the corresponding HTTP status.
+     */
     @GetMapping("list-user")
      public ResponseEntity<List<UserModel>> getAllUsers() {
         try {
@@ -31,7 +39,16 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
      }
-
+     /**
+     * Retrieves a user by their ID.
+     *
+     * This method handles GET requests to the "/user/{id}" route, where the user's ID is passed as a path variable.
+     * If the user is found, it returns the user data with HTTP status 200 (OK).
+     * If an error occurs or the user is not found, it returns an error message with HTTP status 400 (BAD_REQUEST).
+     *
+     * @param id The unique identifier of the user.
+     * @return A [ResponseEntity] containing the user data or an error message with the corresponding HTTP status.
+     */
      @GetMapping("user/{id}")
      public ResponseEntity<Object> getUserById(@PathVariable("id") Long id){
          try {
@@ -45,7 +62,17 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
      }
-
+     /**
+     * Creates a new user.
+     *
+     * This method handles POST requests to the "/create-user" route, where a new [UserModel] object is passed in the request body.
+     * If the user is successfully created, it returns a success message with HTTP status 201 (CREATED).
+     * If there is an error with the input data, it returns an error message with HTTP status 400 (BAD_REQUEST).
+     * For any other errors, it returns an error message with HTTP status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param user The [UserModel] object containing the details of the new user.
+     * @return A [ResponseEntity] containing a success or error message and the corresponding HTTP status.
+     */
      @PostMapping("create-user")
      public ResponseEntity<MessagesDTO> createUser(@RequestBody UserModel user){
         try {
@@ -76,7 +103,19 @@ public class UserController {
         }
 
      }
-
+     /**
+     * Updates an existing user.
+     *
+     * This method handles PUT requests to the "/user-edit/{id}" route, where the user's ID is passed as a path variable
+     * and the updated user data is passed in the request body.
+     * If the user is successfully updated, it returns a success message with HTTP status 200 (OK).
+     * If there is an error with the input data, it returns an error message with HTTP status 400 (BAD_REQUEST).
+     * For any other errors, it returns an error message with HTTP status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param id The unique identifier of the user to update.
+     * @param user The [UserModel] object containing the new details of the user.
+     * @return A [ResponseEntity] containing a success or error message and the corresponding HTTP status.
+     */
      @PutMapping("user-edit/{id}")
      public ResponseEntity<MessagesDTO> updateUser(@PathVariable("id") Long id, @RequestBody UserModel user) {
         try {
@@ -105,7 +144,16 @@ public class UserController {
              return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
          }
      }
-
+     /**
+     * Deletes a user.
+     *
+     * This method handles DELETE requests to the "/user-delete/{id}" route, where the user's ID is passed as a path variable.
+     * If the user is successfully deleted, it returns a success message with HTTP status 200 (OK).
+     * For any errors that occur during the deletion process, it returns an error message with HTTP status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param id The unique identifier of the user to delete.
+     * @return A [ResponseEntity] containing a success or error message and the corresponding HTTP status.
+     */
      @DeleteMapping("user-delete/{id}")
      public ResponseEntity<MessagesDTO> deleteUser(@PathVariable("id") Long id){
         try {
