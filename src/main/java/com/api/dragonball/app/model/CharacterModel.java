@@ -1,4 +1,4 @@
-package com.api.dragonball.model;
+package com.api.dragonball.app.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
