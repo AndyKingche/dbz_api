@@ -1,4 +1,4 @@
-`DBZAPI` es una API Rest de código abierto utilizada para el registro de personajes de Dragon Ball Y manejo de sesiones. El proyecto ha sido desarrollado a través de una aplicación [.3.8-SNAPSHOT](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot/1.5.9.RELEASE). Adicionalmente, `DBZAPI` almacena los personajes en una base de datos PostgreSQL lo cual le permite realizar posteriores consultas.
+`DBZAPI` es una API Rest de código abierto utilizada para el registro de personajes de Dragon Ball Y manejo de sesiones. El proyecto ha sido desarrollado a través de una aplicación [Springboot 3.3.8-SNAPSHOT](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot/1.5.9.RELEASE). Adicionalmente, `DBZAPI` almacena los personajes en una base de datos PostgreSQL lo cual le permite realizar posteriores consultas.
 
 Cotenidos
 =================
