@@ -1,0 +1,349 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8084
+  description: Generated server url
+paths:
+  /api/v1/user/user-edit/{id}:
+    put:
+      tags:
+      - user-controller
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserModel"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MessagesDTO"
+  /api/v1/dbzapp/character-edit/{id}:
+    put:
+      tags:
+      - character-controller
+      operationId: updateCharacter
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CharacterModel"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MessagesDTO"
+  /api/v1/user/create-user:
+    post:
+      tags:
+      - user-controller
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserModel"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MessagesDTO"
+  /api/v1/invalidate:
+    post:
+      tags:
+      - jwt-authentication-controller
+      operationId: invalidateToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/dbzapp/create-character:
+    post:
+      tags:
+      - character-controller
+      operationId: createPerson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CharacterModel"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MessagesDTO"
+  /api/v1/dbzapp/character/image:
+    post:
+      tags:
+      - firebase-controller
+      operationId: uploadImage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/authenticate:
+    post:
+      tags:
+      - jwt-authentication-controller
+      operationId: createAuthenticationToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JwtRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/user/user/{id}:
+    get:
+      tags:
+      - user-controller
+      operationId: getUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/user/list-user:
+    get:
+      tags:
+      - user-controller
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserModel"
+  /api/v1/dbzapp/list-character:
+    get:
+      tags:
+      - character-controller
+      operationId: getAllCharacter
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CharacterModel"
+  /api/v1/dbzapp/character/{id}:
+    get:
+      tags:
+      - character-controller
+      operationId: getCharaacter
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/user/user-delete/{id}:
+    delete:
+      tags:
+      - user-controller
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MessagesDTO"
+  /api/v1/dbzapp/character/image/{name}:
+    delete:
+      tags:
+      - firebase-controller
+      operationId: deleteImage
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/dbzapp/character-delete/{id}:
+    delete:
+      tags:
+      - character-controller
+      operationId: deleteCharacter
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MessagesDTO"
+components:
+  schemas:
+    GenderModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        genderCode:
+          type: string
+        genderDescription:
+          type: string
+    RoleModel:
+      type: object
+    UserModel:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        userIdentification:
+          type: string
+        userName:
+          type: string
+        userLastname:
+          type: string
+        userEmail:
+          type: string
+        userPassword:
+          type: string
+        userAddress:
+          type: string
+        userStatus:
+          type: boolean
+        gender:
+          $ref: "#/components/schemas/GenderModel"
+        rol:
+          $ref: "#/components/schemas/RoleModel"
+    MessagesDTO:
+      type: object
+      properties:
+        message:
+          type: string
+        method:
+          type: string
+        status:
+          type: boolean
+    CharacterModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        characterName:
+          type: string
+        characterAge:
+          type: integer
+          format: int32
+        characterDesc:
+          type: string
+        characterImage:
+          type: string
+        characterPowerLevel:
+          type: integer
+          format: int32
+    JwtRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string

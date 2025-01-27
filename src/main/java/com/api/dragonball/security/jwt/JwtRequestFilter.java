@@ -19,13 +19,14 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
+    private final JWTUserDetailsService userDetailsService;
 
     @Autowired
-    public JwtRequestFilter(JwtTokenUtil jwtTokenUtil) {
+    public JwtRequestFilter(JwtTokenUtil jwtTokenUtil, JWTUserDetailsService userDetailsService) {
         this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsService;
     }
 
-    private JWTUserDetailsService userDetailsService;
     private static final String SWAGGER_URI_PREFIX = "/swagger-ui";
 
     @Override
@@ -33,13 +34,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
 
-        String username = null;
-        String jwtToken = null;
-
-          if (request.getRequestURI().startsWith(SWAGGER_URI_PREFIX)) {
+        if (request.getRequestURI().startsWith(SWAGGER_URI_PREFIX)) {
             filterChain.doFilter(request, response);
             return;
         }
+
+        String username = null;
+        String jwtToken = null;
 
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
@@ -56,7 +57,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
