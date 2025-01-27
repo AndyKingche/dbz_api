@@ -69,7 +69,7 @@ Con el token generado podemos hacer uso de cualquier de los endpoints que ofrece
 ### Swagger
 Para acceder, debemos utilizar los usuarios indicados en la sección anterior.
 
-http://localhost:8084/dbzapp/swagger-ui.html
+http://localhost:8084/dbzapp/swagger-ui/swagger-ui/index.html
 
 ### Postman
 `DBZAPI` también pone a disposición de los usuarios una colección de llamadas y ejemplos que se encuentra en la ruta **/src/postman/dbzapi**.
